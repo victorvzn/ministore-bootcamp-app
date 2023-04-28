@@ -1,6 +1,7 @@
 {
   "name": "ministore-frontend",
   "version": "0.1.0",
+  "description": "Mini tienda frontend",
   "private": true,
   "scripts": {
     "dev": "next dev",
