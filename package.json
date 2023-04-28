@@ -1,0 +1,13 @@
+{
+  "name": "ministore-bootcamp-app",
+  "version": "1.0.0",
+  "description": "Mini tienda",
+  "main": "index.js",
+  "workspaces": ["backend", "frontend"],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["nodejs", "typescript", "javascript", "es6", "react", "zustand", "backend", "frontend", "monorepo", "multipackage"],
+  "author": "Victor Villazón <victorzn23@gmail.com>",
+  "license": "MIT"
+}
