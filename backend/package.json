@@ -1,7 +1,7 @@
 {
   "name": "ministore-backend",
   "version": "1.0.0",
-  "description": "Mini tienda",
+  "description": "Mini tienda backend",
   "main": "index.js",
   "workspaces": ["ministore-backend", "ministore-frontend"],
   "scripts": {
