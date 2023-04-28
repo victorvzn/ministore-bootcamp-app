@@ -1,0 +1,17 @@
+{
+  "name": "ministore-backend",
+  "version": "1.0.0",
+  "description": "Mini tienda",
+  "main": "index.js",
+  "workspaces": ["ministore-backend", "ministore-frontend"],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["nodejs", "typescript", "javascript", "es6", "react", "zustand", "backend", "frontend", "monorepo", "multipackage"],
+  "author": "Victor Villazón <victorzn23@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.18.2"
+  }
+}
