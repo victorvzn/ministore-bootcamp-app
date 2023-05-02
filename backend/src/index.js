@@ -1,8 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { logErrors, boomErrorHandler, errorHandler } from './middlewares/error.handler.js'
 
-import { routerApi } from './routes/index.js'
+import { routerApiV1 } from './routes/index.js'
 
 dotenv.config()
 
@@ -16,6 +17,11 @@ app.use(cors())
 app.get('/', (req, res) => res.json({ message: 'Welcome to the Ministore' }))
 
 routerApiV1(app)
+
+// Middlewares
+app.use(logErrors)
+app.use(boomErrorHandler)
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`)
