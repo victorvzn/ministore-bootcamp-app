@@ -11,7 +11,7 @@ CREATE TYPE "MEMBERSHIP_ROLE" AS ENUM ('OWNER', 'MEMBER');
 CREATE TABLE "enterprises" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
+    "image" TEXT,
     "address" TEXT,
     "phone_number" TEXT,
     "domain" TEXT NOT NULL,
@@ -28,12 +28,12 @@ CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "firstname" TEXT NOT NULL,
     "lastname" TEXT NOT NULL,
-    "phone_number" TEXT NOT NULL,
+    "phone_number" TEXT,
     "address" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" "USER_ROLE" NOT NULL DEFAULT 'ENTERPRISE_CUSTOMER',
-    "email_verified" BOOLEAN NOT NULL,
+    "email_verified" BOOLEAN NOT NULL DEFAULT false,
     "active" BOOLEAN DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -126,12 +126,12 @@ CREATE TABLE "categories" (
 -- CreateTable
 CREATE TABLE "subscriptions" (
     "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
     "trial_start" TIMESTAMP(3) NOT NULL,
     "trial_end" TIMESTAMP(3) NOT NULL,
-    "subs_start" TIMESTAMP(3) NOT NULL,
-    "subs_end" TIMESTAMP(3) NOT NULL,
-    "duration" TEXT NOT NULL,
+    "trial_duration" INTEGER NOT NULL,
+    "subs_start" TIMESTAMP(3),
+    "subs_end" TIMESTAMP(3),
+    "subs_duration" INTEGER NOT NULL DEFAULT 0,
     "status" "SUBSCRIPTION_STATUS" NOT NULL DEFAULT 'ON_HOLD',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -152,10 +152,15 @@ CREATE TABLE "plans" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
-    "enterprise_id" TEXT,
 
     CONSTRAINT "plans_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "enterprises_name_key" ON "enterprises"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "enterprises_domain_key" ON "enterprises"("domain");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");

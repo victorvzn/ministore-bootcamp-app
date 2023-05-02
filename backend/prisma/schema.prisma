@@ -34,16 +34,16 @@ enum MEMBERSHIP_ROLE {
 model Enterprise {
   id String @id @default(cuid())
 
-  name        String
-  image       String
+  name        String  @unique()
+  image       String?
   address     String?
   phoneNumber String? @map("phone_number")
 
-  domain String
+  domain String @unique()
 
-  active    Boolean? @default(true)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  active    Boolean?  @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   subscriptions Subscription[]
@@ -57,7 +57,7 @@ model User {
 
   firstname   String
   lastname    String
-  phoneNumber String @map("phone_number")
+  phoneNumber String? @map("phone_number")
   address     String?
 
   email    String @unique
@@ -65,11 +65,11 @@ model User {
 
   role USER_ROLE @default(ENTERPRISE_CUSTOMER)
 
-  emailVerified Boolean @map("email_verified")
+  emailVerified Boolean @default(false) @map("email_verified")
 
-  active    Boolean? @default(true)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  active    Boolean?  @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   salesHeader SalesHeader[]
@@ -102,8 +102,8 @@ model SalesHeader {
   number String
   total  Float
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   user   User   @relation(fields: [userId], references: [id])
@@ -121,8 +121,8 @@ model SalesDetail {
   size     Int
   color    Int
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   salesHeader   User   @relation(fields: [salesHeaderId], references: [id])
@@ -152,10 +152,10 @@ model Product {
   sizes  String[] @default([])
   colors String[] @default([])
 
-  published Boolean? @default(false)
-  active    Boolean? @default(true)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  published Boolean?  @default(false)
+  active    Boolean?  @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   category   Category? @relation(fields: [categoryId], references: [id])
@@ -174,9 +174,9 @@ model Category {
 
   name String
 
-  active    Boolean? @default(true)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  active    Boolean?  @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   products Product[]
@@ -189,14 +189,13 @@ model Category {
 model Subscription {
   id String @id @default(cuid())
 
-  name       String
-  trialStart DateTime @map("trial_start")
-  trialEnd   DateTime @map("trial_end")
+  trialStart    DateTime @map("trial_start")
+  trialEnd      DateTime @map("trial_end")
+  trialDuration Int @map("trial_duration")
 
-  subs_start DateTime @map("subs_start")
-  subs_end   DateTime @map("subs_end")
-
-  duration String
+  subsStart     DateTime? @map("subs_start")
+  subsEnd       DateTime? @map("subs_end")
+  subsdDuration Int       @default(0) @map("subs_duration")
 
   status    SUBSCRIPTION_STATUS @default(ON_HOLD)
   createdAt DateTime            @default(now()) @map("created_at")
@@ -214,19 +213,17 @@ model Subscription {
 model Plan {
   id String @id @default(cuid())
 
-  name     String
-  description     String
-  price    Float
-  duration Int
+  name        String
+  description String
+  price       Float
+  duration    Int
 
-  active    Boolean? @default(true)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  active    Boolean?  @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   subscriptions Subscription[]
-
-  enterpriseId String? @map("enterprise_id")
 
   @@map("plans")
 }
