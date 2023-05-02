@@ -1,6 +1,6 @@
 # Ministore-backend
 
-| **Note:** El uso de docker es opcional, se usa solo para tener una instancia de postgres y trabajar localmente.
+> **NOTE:** El uso de docker es opcional, se usa solo para tener una instancia de postgres y trabajar localmente.
 
 ### ¿Como levantar el proyecto?
 
@@ -9,6 +9,8 @@ npm install
 
 npm run dev
 ```
+
+Luego visite: http://localhost:5000
 
 ### ¿Como levantar postgres?
 
@@ -34,7 +36,7 @@ docker-compose up -d pgadmin
 docker-compose ps
 ```
 
-Luego de levantar pgadmin visite http://localhost:5050
+Luego visite: http://localhost:5050
 
 ### ¿Cómo usar prisma?
 
@@ -43,9 +45,8 @@ npm run prisma:migrate  -> Ejecuta las migraciones
 npm run prisma:seed     -> Añade data inicial en la base de datos
 ```
 
-## Configuration
 
-### Prisma
+### Configuración de Prisma
 
 ```
 npm i -DE prisma
@@ -53,4 +54,12 @@ npm i -DE prisma
 npx prisma init --datasource-provider postgresql
 
 npx prisma migrate dev
+```
+
+### Como resetear la base de datos
+
+> **NOTE:** Limpia los datos sin opción a recuperarlos y vuelve a ejecutar los seeders
+
+```
+npm run prisma:reset
 ```
