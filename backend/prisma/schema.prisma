@@ -48,6 +48,10 @@ model Enterprise {
 
   subscriptions Subscription[]
   memberships   Membership[]
+  categories      Category[]
+  products       Product[]
+  salesDetails   SalesDetail[]
+  salesHeaders   SalesHeader[]
 
   @@map("enterprises")
 }
@@ -72,8 +76,8 @@ model User {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  salesHeader SalesHeader[]
-  salesDetail SalesDetail[]
+  salesHeaders SalesHeader[]
+  salesDetails SalesDetail[]
   memberships Membership[]
 
   @@map("users")
@@ -109,7 +113,8 @@ model SalesHeader {
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
 
-  enterpriseId String? @map("enterprise_id")
+  enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String      @map("enterprise_id")
 
   @@map("sales_header")
 }
@@ -131,7 +136,8 @@ model SalesDetail {
   product   Product @relation(fields: [productId], references: [id])
   productId String  @map("product_id")
 
-  enterpriseId String? @map("enterprise_id")
+  enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String      @map("enterprise_id")
 
   @@map("sales_detail")
 }
@@ -161,9 +167,10 @@ model Product {
   category   Category? @relation(fields: [categoryId], references: [id])
   categoryId String    @map("category_id")
 
-  salesDetail SalesDetail[]
+  enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String      @map("enterprise_id")
 
-  enterpriseId String? @map("enterprise_id")
+  salesDetail SalesDetail[]
 
   @@unique([name, price, categoryId])
   @@map("products")
@@ -179,9 +186,10 @@ model Category {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  products Product[]
+  enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
+  enterpriseId String      @map("enterprise_id")
 
-  enterpriseId String? @map("enterprise_id")
+  products Product[]
 
   @@map("categories")
 }
@@ -191,7 +199,7 @@ model Subscription {
 
   trialStart    DateTime @map("trial_start")
   trialEnd      DateTime @map("trial_end")
-  trialDuration Int @map("trial_duration")
+  trialDuration Int      @map("trial_duration")
 
   subsStart     DateTime? @map("subs_start")
   subsEnd       DateTime? @map("subs_end")
