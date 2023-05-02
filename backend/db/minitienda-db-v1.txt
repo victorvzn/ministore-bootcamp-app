@@ -1,0 +1,112 @@
+Enum ROLE {
+  ADMIN
+  CLIENT
+}
+
+Enum SUBS_STATUS {
+  ACTIVED
+  CANCELED
+  AUTO_RENEWED
+}
+
+Table Enterprises {
+  id serial [pk]
+  
+  name text
+  image text
+
+  active boolean
+}
+
+Table Subscriptions {
+  id serial [pk]
+
+  trial_start datetime
+  trial_end datetime
+  subs_start datetime
+  subs_end datetime
+
+  status SUBS_STATUS
+
+  enterprise_id int
+  plan_id int
+}
+
+Table Plans {
+  id serial [pk]
+
+  name text
+  price float
+  duration int
+
+  active boolean
+
+  enterprise_id int
+}
+
+Table Users {
+  id serial [pk]
+  firstname text
+  lastname text
+  email text unique
+  password text
+  role ROLE
+  active boolean
+
+  enterprise_id int
+}
+
+Table Products {
+  id serial [pk]
+  name text
+  description text
+  code text
+  price float
+  discountPercentage float
+  stock int
+  brand text
+  active boolean
+
+  category_id int
+  enterprise_id int
+}
+
+Table Categories {
+  id serial [pk]
+  name text
+
+  enterprise_id int
+}
+
+Table SalesHeader {
+  id serial [pk]
+
+  series text
+  number text
+
+  total float
+  createdAt datetime
+
+  user_id int
+  enterprise_id int
+}
+
+Table SalesDetail {
+  id serial [pk]
+
+  quantity int
+  price float
+  amount float
+
+  product_id int
+  sale_header_id int
+  enterprise_id int
+}
+
+ref: Users.id < SalesHeader.user_id
+ref: SalesHeader.id < SalesDetail.sale_header_id
+ref: Products.id < SalesDetail.product_id
+ref: Categories.id < Products.category_id
+ref: Enterprises.id < Users.enterprise_id
+ref: Enterprises.id < Subscriptions.enterprise_id
+ref: Plans.id < Subscriptions.plan_id
