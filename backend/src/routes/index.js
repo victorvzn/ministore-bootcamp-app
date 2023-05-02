@@ -4,7 +4,7 @@ import { enterprisesRouter } from './enterprises.router.js'
 import { categoriesRouter } from './categories.router.js'
 import { productsRouter } from './products.router.js'
 
-export function routerApi (app) {
+export function routerApiV1 (app) {
   const router = express.Router()
 
   app.use('/api/v1', router)

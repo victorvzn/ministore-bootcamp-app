@@ -15,7 +15,7 @@ app.use(cors())
 
 app.get('/', (req, res) => res.json({ message: 'Welcome to the Ministore' }))
 
-routerApi(app)
+routerApiV1(app)
 
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`)
