@@ -39,7 +39,8 @@ Luego de levantar pgadmin visite http://localhost:5050
 ### ¿Cómo usar prisma?
 
 ```
-npm prisma migrate dev
+npm run prisma:migrate  -> Ejecuta las migraciones
+npm run prisma:seed     -> Añade data inicial en la base de datos
 ```
 
 ## Configuration
