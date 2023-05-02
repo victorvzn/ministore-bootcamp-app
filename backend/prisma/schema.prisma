@@ -61,7 +61,7 @@ model User {
 
   firstname   String
   lastname    String
-  phoneNumber String? @map("phone_number")
+  phoneNumber String? @unique @map("phone_number")
   address     String?
 
   email    String @unique
