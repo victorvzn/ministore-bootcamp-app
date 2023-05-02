@@ -10,7 +10,7 @@ const password = Joi.string().min(8)
 const domain = Joi.string().min(3).max(15)
 // const role = Joi.string().min(3).max(15)
 
-export const createEnterpriseSchema = Joi.object({
+export const registerEnterpriseSchema = Joi.object({
   name: name.required(),
   firstname: firstname.required(),
   lastname: lastname.required(),
