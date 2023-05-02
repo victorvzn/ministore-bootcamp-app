@@ -21,7 +21,7 @@ docker-compose down -> Para detener los servicios de docker
 
 docker-compose exec postgres bash -> Para conectarnos al contenedor por terminal
 
-/# psql -h localhost -d ministoredb -U store
+/# psql -h localhost -d ministoredb -U ministore
 =# \d
 =# \q
 ```
@@ -35,3 +35,21 @@ docker-compose ps
 ```
 
 Luego de levantar pgadmin visite http://localhost:5050
+
+### ¿Cómo usar prisma?
+
+```
+npm prisma migrate dev
+```
+
+## Configuration
+
+### Prisma
+
+```
+npm i -DE prisma
+
+npx prisma init --datasource-provider postgresql
+
+npx prisma migrate dev
+```
