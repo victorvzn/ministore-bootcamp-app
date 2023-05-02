@@ -34,7 +34,6 @@ export const registerEnterprise = async (req, res) => {
         trialStart: currentDate,
         trialEnd: addDaysToCurrentDate,
         trialDuration: getPlanFree.duration,
-
         planId: getPlanFree.id,
         enterpriseId: newEnterprise.id
     }})
