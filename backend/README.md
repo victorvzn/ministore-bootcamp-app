@@ -1,6 +1,7 @@
 # Ministore-backend
 
 > **NOTE:** El uso de docker es opcional, se usa solo para tener una instancia de postgres y trabajar localmente.
+> **NOTE:** Duplicar y renombrar el archivo `.env.example` a `.env`
 
 ### ¿Como levantar el proyecto?
 
