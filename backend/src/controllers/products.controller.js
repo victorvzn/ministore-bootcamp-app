@@ -13,7 +13,7 @@ export const createProduct = async (req, res) => {
       }
     })
 
-    return res.status(201).json({ content: newProduct, message: 'Producto creado exitosamente' })
+    return res.status(201).json({ message: 'Producto creado exitosamente', content: newProduct })
   } catch (error) {
     console.log(error)
     return res.status(400).json({ message: 'Error al crear el producto', content: error.message })
@@ -59,8 +59,9 @@ export const listProducts = async (req, res) => {
       select: fieldsAllowed
     })
 
-    return res.status(200).json({ data: products })
+    return res.status(200).json({ content: products })
   } catch (error) {
+    console.log(error)
     return res.status(400).json({ message: 'Error al listar los productos', content: error.message })
   }
 }
@@ -68,9 +69,8 @@ export const listProducts = async (req, res) => {
 export const listProductsPublic = async (req, res) => {
   const enterpriseFound = req.enterprise
 
-  const { domain } = req.query
-
   const fieldsAllowed = {
+    id: true,
     name: true,
     price: true,
     categoryId: true,
@@ -96,17 +96,16 @@ export const listProductsPublic = async (req, res) => {
       where: { enterpriseId: enterpriseFound.id },
       select: fieldsAllowed
     })
-    return res.status(200).json({ data: products })
+
+    return res.status(200).json({ content: products })
   } catch (error) {
-    console.log({enterpriseFound}, error.message)
+    console.log(error.message)
     return res.status(400).json({ message: 'Error al listar los productos', content: error.message })
   }
 }
 
 export const getProduct = async (req, res) => {
   const { id } = req.params
-
-  console.log({ id })
 
   try {
     const userFound = req.user
@@ -141,15 +140,15 @@ export const getProduct = async (req, res) => {
       deletedAt: true,
     }
 
-    const product = await Prisma.product.findFirst({
+    const product = await Prisma.product.findFirstOrThrow({
       where: { id, enterpriseId: userEnterpriseId },
       select: fieldsAllowed
     })
 
-    return res.status(200).json({ data: product })
+    return res.status(200).json({ content: product })
   } catch (error) {
     console.log(error)
-    return res.status(400).json({ message: 'Error al lista producto', content: error.message })
+    return res.status(400).json({ message: 'Error al obtener el producto', content: error.message })
   }
 }
 
@@ -162,12 +161,41 @@ export const updateProduct = async (req, res) => {
 
     const userEnterpriseId = userFound.enterprise.id
 
+    const fieldsAllowed = {
+      id: true,
+      name: true,
+      price: true,
+      categoryId: true,
+      description: true,
+      category: {
+        select: {
+          id: true,
+          name: true
+        },
+      },
+      code: true,
+      discountPercentage: true,
+      stock: true,
+      brand: true,
+      thumbnail: true,
+      images: true,
+      sizes: true,
+      colors: true,
+
+      published: true,
+      active: true,
+      createdAt: true,
+      updatedAt: true,
+      deletedAt: true,
+    }
+
     const product = await Prisma.product.update({
       where: { id, enterpriseId: userEnterpriseId.id },
+      select: fieldsAllowed,
       data
     })
 
-    return res.status(200).json({ data: product, message: 'Producto actualizado exitosamente' })
+    return res.status(200).json({ message: 'Producto actualizado exitosamente', content: product })
   } catch (error) {
     console.log(error)
     return res.status(400).json({ message: 'Error al actualizar producto', content: error.message })
@@ -193,11 +221,11 @@ export const deleteProduct = async (req, res) => {
     })
 
     return res.status(200).json({
-      content: { id: productDeleted.id },
-      message: 'Producto eliminado exitosamente'
+      message: 'Producto eliminado exitosamente',
+      content: { id: productDeleted.id }
     })
   } catch (error) {
     console.log(error)
-    return res.status(400).json({ message: 'Error al lista producto', content: error.message })
+    return res.status(400).json({ message: 'Error al eliminar producto', content: error.message })
   }
 }
