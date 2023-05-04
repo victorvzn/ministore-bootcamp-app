@@ -109,6 +109,6 @@ export const authLogin = async (req, res) => {
     }
   } catch (error) {
     console.log(error)
-    return res.status(400).json({ message: 'Error al autenticar al usuario', content: error.message })
+    return res.status(400).json({ message: 'Error al autenticar el usuario' })
   }
 }
