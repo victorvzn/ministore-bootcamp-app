@@ -10,8 +10,10 @@ export function routerApiV1 (app) {
 
   app.use('/api/v1', router)
 
+  router.use('/auth', authRouter)
+
   router.use('/enterprises', enterprisesRouter)
+  
   router.use('/categories', categoriesRouter)
   router.use('/products', productsRouter)
-  router.use('/auth', authRouter)
 }
