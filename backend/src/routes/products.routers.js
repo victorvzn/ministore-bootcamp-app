@@ -21,9 +21,9 @@ productsRouter.get(
 )
 
 productsRouter.get(
-  '/public',
+  '/store',
   validateDomain,
-  controllers.listProductsPublic
+  controllers.listProductsByStore
 )
 
 productsRouter.get(

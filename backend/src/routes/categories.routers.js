@@ -21,9 +21,9 @@ categoriesRouter.get(
 )
 
 categoriesRouter.get(
-  '/public',
+  '/store',
   validateDomain,
-  controllers.listCategoriesPublic
+  controllers.listCategoriesByStore
 )
 
 categoriesRouter.get(

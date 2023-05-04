@@ -52,7 +52,7 @@ export const listCategories = async (req, res) => {
   }
 }
 
-export const listCategoriesPublic = async (req, res) => {
+export const listCategoriesByStore = async (req, res) => {
   const enterpriseFound = req.enterprise
 
   const fieldsAllowed = {

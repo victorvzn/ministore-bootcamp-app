@@ -71,7 +71,7 @@ export const listProducts = async (req, res) => {
   }
 }
 
-export const listProductsPublic = async (req, res) => {
+export const listProductsByStore = async (req, res) => {
   const enterpriseFound = req.enterprise
 
   const fieldsAllowed = {
