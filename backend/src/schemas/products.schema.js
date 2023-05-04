@@ -1,6 +1,7 @@
 import Joi from 'joi'
 
 const id = Joi.string().alphanum()
+
 const name = Joi.string().min(1).max(30)
 const price = Joi.number().min(0)
 const categoryId = Joi.string()

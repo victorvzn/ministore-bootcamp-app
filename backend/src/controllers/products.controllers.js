@@ -55,7 +55,11 @@ export const listProducts = async (req, res) => {
     }
 
     const products = await Prisma.product.findMany({
-      where: { enterpriseId: userEnterpriseId },
+      where: {
+        enterpriseId: userEnterpriseId,
+        active: true,
+        deletedAt: null
+      },
       select: fieldsAllowed
     })
 
@@ -88,12 +92,16 @@ export const listProductsPublic = async (req, res) => {
     thumbnail: true,
     images: true,
     sizes: true,
-    colors: true
+    colors: true,
   }
 
   try {
     const products = await Prisma.product.findMany({
-      where: { enterpriseId: enterpriseFound.id },
+      where: {
+        enterpriseId: enterpriseFound.id,
+        active: true,
+        deletedAt: null
+      },
       select: fieldsAllowed
     })
 
@@ -140,10 +148,19 @@ export const getProduct = async (req, res) => {
       deletedAt: true,
     }
 
-    const product = await Prisma.product.findFirstOrThrow({
-      where: { id, enterpriseId: userEnterpriseId },
+    const product = await Prisma.product.findFirst({
+      where: {
+        id,
+        enterpriseId: userEnterpriseId,
+        active: true,
+        deletedAt: null
+      },
       select: fieldsAllowed
     })
+
+    if (!product) {
+      return res.status(400).json({ message: 'No se encontró el producto' })
+    }
 
     return res.status(200).json({ content: product })
   } catch (error) {
