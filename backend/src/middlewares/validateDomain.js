@@ -1,12 +1,11 @@
-import jwt from 'jsonwebtoken'
 import { Prisma } from "../libs/prisma.js"
 
 export const validateDomain = async (req, res, next) => {
   try {
     const { domain } = req.query
-
+    
     if (!domain) throw new Error('Error validando domain')
-
+    
     const enterpriseFound = await Prisma.enterprise.findFirst({
       where: { domain },
       select: { id: true, name: true, domain: true }
