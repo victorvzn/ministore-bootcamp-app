@@ -3,23 +3,31 @@ import { Prisma } from "../libs/prisma.js"
 
 export const validateToken = async (req, res, next) => {
   if (!req.headers.authorization) {
-    return res.status(401).json({ message: 'Se necesita una token para realizar esta peticion' })
+    return res.status(401).json({ message: 'Se necesita un token para realizar esta peticion' })
   }
 
   const token = req.headers.authorization.split(' ')[1]
 
   if (!token) {
-    return res.status(401).json({ message: 'El formato debe ser Bearer YOUR_TOKEN' })
+    return res.status(401).json({ message: 'El formato debe ser: Bearer YOUR_TOKEN' })
   }
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET)
 
-    const useFound = await Prisma.user.findFirst({ where: { id: payload.jti } })
+    // TODO: Mejorar la forma de traer el membership de un usuario
 
-    console.log({ useFound })
+    const userFound = await Prisma.user.findFirst({ where: { id: payload.jti } })
 
-    req.user = useFound
+    const userEnterpriseFound = await Prisma.membership.findFirst({ where: { userId: userFound.id } })
+
+    req.user = {
+      ...userFound,
+      enterprise: {
+        id: userEnterpriseFound.enterpriseId,
+        role: userEnterpriseFound.role
+      }
+    }
 
     next()
   } catch (error) {
