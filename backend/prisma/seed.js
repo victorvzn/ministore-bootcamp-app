@@ -1,17 +1,15 @@
 import { PrismaClient } from '@prisma/client'
-import { plans } from  './plansSeed.js'
-import { users } from  './usersSeed.js'
+import { generatePlans } from  './plansSeed.js'
+import { generateUsers } from  './usersSeed.js'
+import { generateTienda1 } from  './tienda1Seed.js'
 
 const prisma = new PrismaClient()
 
 async function main() {
-  for (let data of plans) {
-    await prisma.plan.create({ data })
-  }
+  await generatePlans()
+  await generateUsers()
 
-  for (let data of users) {
-    await prisma.user.create({ data })
-  }
+  await generateTienda1()
 }
 
 main()

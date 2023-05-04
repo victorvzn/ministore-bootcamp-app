@@ -55,7 +55,7 @@ CREATE TABLE "memberships" (
 );
 
 -- CreateTable
-CREATE TABLE "sales_header" (
+CREATE TABLE "orders_header" (
     "id" TEXT NOT NULL,
     "series" TEXT NOT NULL,
     "number" TEXT NOT NULL,
@@ -64,13 +64,13 @@ CREATE TABLE "sales_header" (
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
     "user_id" TEXT NOT NULL,
-    "enterprise_id" TEXT,
+    "enterprise_id" TEXT NOT NULL,
 
-    CONSTRAINT "sales_header_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "orders_header_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "sales_detail" (
+CREATE TABLE "orders_detail" (
     "id" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
     "size" INTEGER NOT NULL,
@@ -78,11 +78,11 @@ CREATE TABLE "sales_detail" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
-    "sales_header_id" TEXT NOT NULL,
+    "order_header_id" TEXT NOT NULL,
     "product_id" TEXT NOT NULL,
-    "enterprise_id" TEXT,
+    "enterprise_id" TEXT NOT NULL,
 
-    CONSTRAINT "sales_detail_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "orders_detail_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -105,7 +105,7 @@ CREATE TABLE "products" (
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
     "category_id" TEXT NOT NULL,
-    "enterprise_id" TEXT,
+    "enterprise_id" TEXT NOT NULL,
 
     CONSTRAINT "products_pkey" PRIMARY KEY ("id")
 );
@@ -118,7 +118,7 @@ CREATE TABLE "categories" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
-    "enterprise_id" TEXT,
+    "enterprise_id" TEXT NOT NULL,
 
     CONSTRAINT "categories_pkey" PRIMARY KEY ("id")
 );
@@ -163,6 +163,9 @@ CREATE UNIQUE INDEX "enterprises_name_key" ON "enterprises"("name");
 CREATE UNIQUE INDEX "enterprises_domain_key" ON "enterprises"("domain");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "users_phone_number_key" ON "users"("phone_number");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
@@ -175,16 +178,28 @@ ALTER TABLE "memberships" ADD CONSTRAINT "memberships_enterpriseId_fkey" FOREIGN
 ALTER TABLE "memberships" ADD CONSTRAINT "memberships_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "sales_header" ADD CONSTRAINT "sales_header_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "orders_header" ADD CONSTRAINT "orders_header_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "sales_detail" ADD CONSTRAINT "sales_detail_sales_header_id_fkey" FOREIGN KEY ("sales_header_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "orders_header" ADD CONSTRAINT "orders_header_enterprise_id_fkey" FOREIGN KEY ("enterprise_id") REFERENCES "enterprises"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "sales_detail" ADD CONSTRAINT "sales_detail_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "products"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "orders_detail" ADD CONSTRAINT "orders_detail_order_header_id_fkey" FOREIGN KEY ("order_header_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "orders_detail" ADD CONSTRAINT "orders_detail_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "products"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "orders_detail" ADD CONSTRAINT "orders_detail_enterprise_id_fkey" FOREIGN KEY ("enterprise_id") REFERENCES "enterprises"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "products" ADD CONSTRAINT "products_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "products" ADD CONSTRAINT "products_enterprise_id_fkey" FOREIGN KEY ("enterprise_id") REFERENCES "enterprises"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "categories" ADD CONSTRAINT "categories_enterprise_id_fkey" FOREIGN KEY ("enterprise_id") REFERENCES "enterprises"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_plan_id_fkey" FOREIGN KEY ("plan_id") REFERENCES "plans"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

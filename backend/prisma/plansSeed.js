@@ -1,3 +1,7 @@
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
 export const plans = [
   {
     name: 'Free',
@@ -18,3 +22,11 @@ export const plans = [
     duration: 30
   }
 ]
+
+export const generatePlans = async () => {
+  for (let data of plans) {
+    await prisma.plan.create({ data })
+  }
+
+  console.log('Seeding plans by default: OK')
+}
