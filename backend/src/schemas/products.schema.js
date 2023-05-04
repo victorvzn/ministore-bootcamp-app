@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const id = Joi.string().uuid()
+const id = Joi.string().alphanum()
 const name = Joi.string().min(1).max(30)
 const price = Joi.number().min(0)
 const categoryId = Joi.string()
@@ -21,6 +21,28 @@ export const createProductSchema = Joi.object({
   name: name.required(),
   price: price.required(),
   categoryId: categoryId.required(),
+
+  description,
+  code,
+  discountPercentage,
+  stock,
+  brand,
+  thumbnail,
+  images,
+  sizes,
+  colors,
+  published,
+  active
+})
+
+export const getProductSchema = Joi.object({
+  id: id.required()
+})
+
+export const updateProductSchema = Joi.object({
+  name,
+  price,
+  categoryId,
 
   description,
   code,
