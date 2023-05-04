@@ -71,9 +71,8 @@ npm run prisma:reset
 docker-compose exec postgres bash
 
 /# psql -h localhost -d postgres -U ministore
-postgres=# DROP DATABASE ministoredb;
-postgres=# CREATE DATABASE ministoredb;
-postgres=# CREATE \q
+postgres=# DROP DATABASE ministoredb; CREATE DATABASE ministoredb;
+postgres=# \q
 /# exit
 
 npx prisma migrate dev --name init_schema
