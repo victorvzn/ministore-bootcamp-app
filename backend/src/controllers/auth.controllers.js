@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import slugify from 'slugify'
 import { addDays } from 'date-fns'
+import { sendMail } from '../utils/sendMail.js'
 
 const DEFAULT_CATEGORY = 'General'
 const DEFAULT_MEMBERSHIP_ROLE = 'OWNER'
@@ -60,6 +61,9 @@ export const authRegister = async (req, res) => {
     const newCategory = await Prisma.category.create({
       data: { name: DEFAULT_CATEGORY, enterpriseId: newEnterprise.id }
     })
+
+    sendMail({ id: newSubscription.id })
+      .catch(console.error);
 
     return res.status(201).json({
       content: {
