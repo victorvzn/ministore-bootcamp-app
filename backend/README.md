@@ -63,3 +63,9 @@ npx prisma migrate dev
 ```
 npm run prisma:reset
 ```
+
+### LINKS
+
+* https://www.mikealche.com/software-development/how-to-create-a-multi-tenant-application-with-next-js-and-prisma
+* https://blog.tericcabrel.com/many-to-many-relationship-prisma/
+* https://jwt.io/
