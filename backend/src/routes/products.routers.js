@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import * as controllers from '../controllers/products.controller.js'
+import * as controllers from '../controllers/products.controllers.js'
 import { requestValidatorHandler } from '../middlewares/requestValidator.handler.js'
 import { createProductSchema, getProductSchema, updateProductSchema } from '../schemas/products.schema.js'
 import { validateToken } from '../middlewares/validateToken.js'

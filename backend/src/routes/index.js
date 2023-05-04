@@ -1,8 +1,8 @@
 import express from 'express'
 
-import { enterprisesRouter } from './enterprises.router.js'
-import { categoriesRouter } from './categories.router.js'
-import { productsRouter } from './products.router.js'
+import { enterprisesRouter } from './enterprises.routers.js'
+import { categoriesRouter } from './categories.routers.js'
+import { productsRouter } from './products.routers.js'
 import { authRouter } from './auth.routers.js'
 
 export function routerApiV1 (app) {
