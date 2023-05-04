@@ -22,7 +22,32 @@ export const createCategory = async (req, res) => {
 
 export const listCategories = async (req, res) => {
   try {
-    const categories = await Prisma.category.findMany()
+    const categories = await Prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+
+        active: true,
+        createdAt: true,
+        updatedAt: true,
+        deletedAt: true,
+      }
+    })
+
+    return res.status(200).json({ content: categories })
+  } catch (error) {
+    return res.status(400).json({ message: 'Error al crear la categoria', content: error.message })
+  }
+}
+
+export const listCategoriesPublic = async (req, res) => {
+  try {
+    const categories = await Prisma.category.findMany({
+      select: {
+        id: true,
+        name: true
+      }
+    })
 
     return res.status(200).json({ content: categories })
   } catch (error) {

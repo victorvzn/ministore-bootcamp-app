@@ -15,5 +15,11 @@ categoriesRouter.post(
 
 categoriesRouter.get(
   '/',
+  validateToken,
   controllers.listCategories
+)
+
+categoriesRouter.get(
+  '/public',
+  controllers.listCategoriesPublic
 )
