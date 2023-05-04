@@ -14,6 +14,7 @@ CREATE TABLE "enterprises" (
     "image" TEXT,
     "address" TEXT,
     "phone_number" TEXT,
+    "currencySymbol" TEXT DEFAULT 'S/',
     "domain" TEXT NOT NULL,
     "active" BOOLEAN DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -57,8 +58,8 @@ CREATE TABLE "memberships" (
 -- CreateTable
 CREATE TABLE "orders_header" (
     "id" TEXT NOT NULL,
-    "series" TEXT NOT NULL,
-    "number" TEXT NOT NULL,
+    "serie" TEXT NOT NULL DEFAULT 'A-',
+    "number" INTEGER NOT NULL DEFAULT 1,
     "total" DOUBLE PRECISION NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,

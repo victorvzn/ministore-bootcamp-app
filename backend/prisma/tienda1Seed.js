@@ -5,7 +5,6 @@ import { addDays } from 'date-fns'
 
 const prisma = new PrismaClient()
 
-const DEFAULT_TRIAL_DURATION = 7
 const PLAN_FREE = 'Free'
 
 const passwordHashed = bcrypt.hashSync('Welcome123', 10);
@@ -82,27 +81,50 @@ export const categories = [
 export const productsCategory1 = [
   {
     name: 'Product 1',
+    description: 'Description Product 1',
     code: 'PC1001',
+    brand: 'Brand 1',
     price: 20.00,
     colors: ['Blanco'],
     sizes: ['XS', 'S'],
+    stock: 21,
+    published: true
   }
 ]
 
 export const productsCategory2 = [
   {
     name: 'Product 2',
+    description: 'Description Product 2',
     code: 'PC2001',
+    brand: 'Brand 2',
     price: 40.00,
     colors: ['Blanco', 'Azúl'],
     sizes: ['XS', 'S', 'M'],
+    stock: 21,
+    published: true
   },
   {
     name: 'Product 3',
+    description: 'Description Product 3',
     code: 'PC2002',
+    brand: 'Brand 2',
     price: 80.00,
     colors: ['Blanco', 'Azúl', 'Guinda'],
     sizes: ['XS', 'S', 'M', 'L'],
+    stock: 21,
+    published: true
+  },
+  {
+    name: 'Product 4',
+    description: 'Description Product 4',
+    code: 'PC2003',
+    brand: 'Brand 3',
+    price: 100.00,
+    colors: ['Azúl', 'Guinda'],
+    sizes: ['S', 'M', 'L'],
+    stock: 21,
+    published: false
   }
 ]
 
@@ -113,7 +135,7 @@ export const generateTienda1 = async () => {
   const trialDuration = getPlanFree.duration
   
   const currentDate = new Date()
-  const addDaysToCurrentDate = addDays(currentDate, trialDuration);
+  const addTrialDurationToCurrentDate = addDays(currentDate, trialDuration);
 
   const newEnterprise = await prisma.enterprise.create({ data: enterprise })
   const enterpriseId = newEnterprise.id
@@ -122,7 +144,7 @@ export const generateTienda1 = async () => {
   await prisma.subscription.create({
     data: {
       trialStart: currentDate,
-      trialEnd: addDaysToCurrentDate,
+      trialEnd: addTrialDurationToCurrentDate,
       planId,
       trialDuration,
       enterpriseId

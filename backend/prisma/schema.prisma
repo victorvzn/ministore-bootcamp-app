@@ -34,10 +34,11 @@ enum MEMBERSHIP_ROLE {
 model Enterprise {
   id String @id @default(cuid())
 
-  name        String  @unique()
-  image       String?
-  address     String?
-  phoneNumber String? @map("phone_number")
+  name           String  @unique()
+  image          String?
+  address        String?
+  phoneNumber    String? @map("phone_number")
+  currencySymbol String? @default("S/")
 
   domain String @unique()
 
@@ -48,10 +49,10 @@ model Enterprise {
 
   subscriptions Subscription[]
   memberships   Membership[]
-  categories      Category[]
-  products       Product[]
-  ordersHeaders   OrdersHeader[]
-  ordersDetails   ordersDetail[]
+  categories    Category[]
+  products      Product[]
+  ordersHeaders OrdersHeader[]
+  ordersDetails ordersDetail[]
 
   @@map("enterprises")
 }
@@ -78,7 +79,7 @@ model User {
 
   ordersHeaders OrdersHeader[]
   ordersDetails ordersDetail[]
-  memberships Membership[]
+  memberships   Membership[]
 
   @@map("users")
 }
@@ -102,8 +103,8 @@ model Membership {
 model OrdersHeader {
   id String @id @default(cuid())
 
-  series String
-  number String
+  serie  String @default("A-")
+  number Int    @default(1)
   total  Float
 
   createdAt DateTime  @default(now()) @map("created_at")
