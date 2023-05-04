@@ -9,7 +9,8 @@
     "dev": "nodemon src/index.js",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:seed": "npx prisma db seed",
-    "prisma:reset": "npx prisma migrate reset"
+    "prisma:reset": "npx prisma migrate reset",
+    "prisma:ui": "npx prisma studio"
   },
   "keywords": [
     "nodejs",
