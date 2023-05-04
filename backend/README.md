@@ -65,6 +65,21 @@ npx prisma migrate dev
 npm run prisma:reset
 ```
 
+### Borrar la base de datos y volver a ejecutar las migraciones
+
+```
+docker-compose exec postgres bash
+
+/# psql -h localhost -d postgres -U ministore
+postgres=# DROP DATABASE ministoredb;
+postgres=# CREATE DATABASE ministoredb;
+postgres=# CREATE \q
+/# exit
+
+npx prisma migrate dev --name init_schema
+npm run prisma:reset
+```
+
 ### LINKS
 
 * https://www.mikealche.com/software-development/how-to-create-a-multi-tenant-application-with-next-js-and-prisma
