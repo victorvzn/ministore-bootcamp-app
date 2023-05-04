@@ -37,14 +37,18 @@ export const listCategories = async (req, res) => {
     }
 
     const categories = await Prisma.category.findMany({
-      where: { enterpriseId: userEnterpriseId },
+      where: {
+        enterpriseId: userEnterpriseId,
+        active: true,
+        deletedAt: null
+      },
       select: fieldsAllowed
     })
 
     return res.status(200).json({ content: categories })
   } catch (error) {
     console.log(error)
-    return res.status(400).json({ message: 'Error al crear la categoría', content: error.message })
+    return res.status(400).json({ message: 'Error al listar las categorias', content: error.message })
   }
 }
 
@@ -58,7 +62,11 @@ export const listCategoriesPublic = async (req, res) => {
 
   try {
     const categories = await Prisma.category.findMany({
-      where: { enterpriseId: enterpriseFound.id },
+      where: {
+        enterpriseId: enterpriseFound.id,
+        active: true,
+        deletedAt: null
+      },
       select: fieldsAllowed
     })
 
@@ -87,10 +95,19 @@ export const getCategory = async (req, res) => {
       deletedAt: true
     }
 
-    const category = await Prisma.category.findFirstOrThrow({
-      where: { id, enterpriseId: userEnterpriseId },
+    const category = await Prisma.category.findFirst({
+      where: {
+        id,
+        enterpriseId: userEnterpriseId,
+        active: true,
+        deletedAt: null
+      },
       select: fieldsAllowed
     })
+
+    if (!category) {
+      return res.status(400).json({ message: 'No se encontró la categoría' })
+    }
 
     return res.status(200).json({ content: category })
   } catch (error) {
@@ -127,7 +144,7 @@ export const updateCategory = async (req, res) => {
     return res.status(200).json({ message: 'Categoría actualizada exitosamente', content: category })
   } catch (error) {
     console.log(error)
-    return res.status(400).json({ message: 'Error al actualizar categoría', content: error.message })
+    return res.status(400).json({ message: 'Error al actualizar la categoría', content: error.message })
   }
 }
 
@@ -155,6 +172,6 @@ export const deleteCategory = async (req, res) => {
     })
   } catch (error) {
     console.log(error)
-    return res.status(400).json({ message: 'Error al eliminar categoría', content: error.message })
+    return res.status(400).json({ message: 'Error al eliminar la categoría', content: error.message })
   }
 }

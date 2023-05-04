@@ -1,6 +1,7 @@
 import Joi from 'joi'
 
 const id = Joi.string().alphanum()
+
 const name = Joi.string().min(1).max(25)
 const active = Joi.boolean()
 
