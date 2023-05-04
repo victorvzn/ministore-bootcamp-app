@@ -50,8 +50,8 @@ model Enterprise {
   memberships   Membership[]
   categories      Category[]
   products       Product[]
-  salesDetails   SalesDetail[]
-  salesHeaders   SalesHeader[]
+  ordersHeaders   OrdersHeader[]
+  ordersDetails   ordersDetail[]
 
   @@map("enterprises")
 }
@@ -76,8 +76,8 @@ model User {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  salesHeaders SalesHeader[]
-  salesDetails SalesDetail[]
+  ordersHeaders OrdersHeader[]
+  ordersDetails ordersDetail[]
   memberships Membership[]
 
   @@map("users")
@@ -99,7 +99,7 @@ model Membership {
   @@map("memberships")
 }
 
-model SalesHeader {
+model OrdersHeader {
   id String @id @default(cuid())
 
   series String
@@ -116,10 +116,10 @@ model SalesHeader {
   enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
   enterpriseId String      @map("enterprise_id")
 
-  @@map("sales_header")
+  @@map("orders_header")
 }
 
-model SalesDetail {
+model ordersDetail {
   id String @id @default(cuid())
 
   quantity Int
@@ -130,8 +130,8 @@ model SalesDetail {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  salesHeader   User   @relation(fields: [salesHeaderId], references: [id])
-  salesHeaderId String @map("sales_header_id")
+  ordersHeader   User   @relation(fields: [ordersHeaderId], references: [id])
+  ordersHeaderId String @map("order_header_id")
 
   product   Product @relation(fields: [productId], references: [id])
   productId String  @map("product_id")
@@ -139,7 +139,7 @@ model SalesDetail {
   enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
   enterpriseId String      @map("enterprise_id")
 
-  @@map("sales_detail")
+  @@map("orders_detail")
 }
 
 model Product {
@@ -170,7 +170,7 @@ model Product {
   enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id])
   enterpriseId String      @map("enterprise_id")
 
-  salesDetail SalesDetail[]
+  ordersDetail ordersDetail[]
 
   @@unique([name, price, categoryId])
   @@map("products")
