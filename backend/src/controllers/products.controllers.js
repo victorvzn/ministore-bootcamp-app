@@ -58,7 +58,8 @@ export const listProducts = async (req, res) => {
       where: {
         enterpriseId: userEnterpriseId,
         active: true,
-        deletedAt: null
+        deletedAt: null,
+        published: true
       },
       select: fieldsAllowed
     })
@@ -100,7 +101,8 @@ export const listProductsPublic = async (req, res) => {
       where: {
         enterpriseId: enterpriseFound.id,
         active: true,
-        deletedAt: null
+        deletedAt: null,
+        published: true
       },
       select: fieldsAllowed
     })
@@ -153,7 +155,8 @@ export const getProduct = async (req, res) => {
         id,
         enterpriseId: userEnterpriseId,
         active: true,
-        deletedAt: null
+        deletedAt: null,
+        published: true
       },
       select: fieldsAllowed
     })
