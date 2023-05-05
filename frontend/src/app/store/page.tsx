@@ -5,8 +5,6 @@ const inter = Inter({ subsets: ['latin'] })
 const APP_URL = process.env.APP_URL_FRONTEND
 
 const fetchProducts = () => {
-  console.log('>>>', process.env.NEXT_PUBLIC_URL)
-
   return fetch(`${APP_URL}/api/v1/products`)
     .then(res => res.json())
     .catch(err => console.log(err))
