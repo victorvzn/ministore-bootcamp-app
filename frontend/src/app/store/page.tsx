@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const APP_URL = process.env.APP_FRONTEND_URL
+const APP_URL = process.env.APP_URL_FRONTEND
 
 const fetchProducts = () => {
 
