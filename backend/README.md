@@ -79,6 +79,17 @@ npx prisma migrate dev --name init_schema
 npm run prisma:reset
 ```
 
+### Configuración en render
+
+* Para configurar en render debemos añadir lo siguiente en settings:
+
+```
+Root directory: backend
+Build Command: npm install; npm run prisma:generate; npm run prisma:migrate; npm run prisma:seed --force
+Start Command: npm start
+```
+
+* Luego hay que crear las variables de entorno que se encuentran en el archivo .env
 ### LINKS
 
 * https://www.mikealche.com/software-development/how-to-create-a-multi-tenant-application-with-next-js-and-prisma
