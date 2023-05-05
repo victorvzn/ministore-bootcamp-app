@@ -6,17 +6,21 @@ const inter = Inter({ subsets: ['latin'] })
 const APP_URL = process.env.APP_URL_FRONTEND
 
 const fetchProducts = async () => {
-  const headersInstance = headers();
+    const headersInstance = headers();
 
-  const referer = headersInstance.get('referer')
+    const host = headersInstance.get('host')
 
-  const res = await fetch(`${referer}/api/v1/products`)
+    console.log(host)
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
+    const url = `https://${host}/api/v1/products`
 
-  return res.json()
+    const res = await fetch(url)
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch data')
+    }
+
+    return res.json()
 }
 
 export default async function Store() {
