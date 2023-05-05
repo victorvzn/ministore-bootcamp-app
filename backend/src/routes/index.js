@@ -1,7 +1,7 @@
 import express from 'express'
 
-import { authRouter } from './auth.routers.js'
-
+import { authCentralRouter } from './authCentral.routers.js'
+import { authStoreRouter } from './authStore.routers.js'
 import { enterprisesRouter } from './enterprises.routers.js'
 
 import { categoriesRouter } from './categories.routers.js'
@@ -14,7 +14,8 @@ export function routerApiV1 (app) {
 
   app.use('/api/v1', router)
 
-  router.use('/auth', authRouter)
+  router.use('/central/auth', authCentralRouter)
+  router.use('/auth', authStoreRouter)
 
   router.use('/enterprises', enterprisesRouter)
   
