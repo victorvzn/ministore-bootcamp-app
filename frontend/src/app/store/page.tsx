@@ -3,8 +3,6 @@ import { headers } from 'next/headers';
 
 const inter = Inter({ subsets: ['latin'] })
 
-const APP_URL = process.env.APP_URL_FRONTEND
-
 const isDev = process.env.NODE_ENV === 'development'
 
 const fetchProducts = async () => {
