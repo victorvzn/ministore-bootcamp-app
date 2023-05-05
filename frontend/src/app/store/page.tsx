@@ -8,9 +8,11 @@ const APP_URL = process.env.APP_URL_FRONTEND
 const fetchProducts = async () => {
   const headersInstance = headers();
 
-  const host = await headersInstance.get('referer')
+  const host = headersInstance.get('referer')
 
-  const url = await new URL(host || '')
+  const url =new URL(host || '')
+
+  console.log({url})
 
   const res = await fetch(`${url.origin}/api/v1/products`)
 
