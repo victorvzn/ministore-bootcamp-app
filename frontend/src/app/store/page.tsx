@@ -1,4 +1,3 @@
-import { url } from 'inspector';
 import { Inter } from 'next/font/google'
 import { headers } from 'next/headers';
 
