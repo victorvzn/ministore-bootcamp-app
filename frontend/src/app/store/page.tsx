@@ -8,13 +8,9 @@ const APP_URL = process.env.APP_URL_FRONTEND
 const fetchProducts = async () => {
   const headersInstance = headers();
 
-  const host = headersInstance.get('referer')
+  const referer = headersInstance.get('referer')
 
-  const url =new URL(host || '')
-
-  console.log({url})
-
-  const res = await fetch(`${url.origin}/api/v1/products`)
+  const res = await fetch(`${referer}/api/v1/products`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
