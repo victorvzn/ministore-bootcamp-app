@@ -103,7 +103,7 @@ export const authLogin = async (req, res) => {
         role: userFound.role
       }
       const secretKey = process.env.JWT_SECRET
-      const options = { expiresIn: '1h' }
+      const options = { expiresIn: process.env.JWT_EXPIRES_IN || '1h' }
 
       const token = jwt.sign(payload, secretKey, options)
 
