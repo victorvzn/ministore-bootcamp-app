@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 const fetchProducts = () => {
-  const APP_URL = process.env.VITE_APP_URL
+  const APP_URL = process.env.APP_URL
 
   return fetch(`${APP_URL}/api/v1/products`)
     .then(res => res.json())
