@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { generatePlans } from  './plansSeed.js'
 import { generateUsers } from  './usersSeed.js'
 import { generateTienda1 } from  './tienda1Seed.js'
+import { generateTienda2Empty } from  './tienda2SeedEmpty.js'
 
 const prisma = new PrismaClient()
 
@@ -10,6 +11,7 @@ async function main() {
   await generateUsers()
 
   await generateTienda1()
+  await generateTienda2Empty()
 }
 
 main()
