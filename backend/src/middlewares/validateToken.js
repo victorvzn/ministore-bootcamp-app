@@ -21,6 +21,10 @@ export const validateToken = async (req, res, next) => {
 
     const userEnterpriseFound = await Prisma.membership.findFirst({ where: { userId: userFound.id } })
 
+    if (!userEnterpriseFound) {
+      return res.status(400).json({ code: 'T001', message: 'Error' })
+    }
+
     req.user = {
       ...userFound,
       enterprise: {
@@ -33,6 +37,7 @@ export const validateToken = async (req, res, next) => {
   } catch (error) {
     // si la token es incorrecta ingresara al catch y/o si el usuario no existe
     return res.status(400).json({
+      code: 'T002',
       message: 'Error',
       content: error.message
     })
