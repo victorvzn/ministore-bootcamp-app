@@ -13,11 +13,15 @@ const fetchProducts = async () => {
 
   console.log({ host })
 
-  const url = new URL(host || '')
+  const url = await new URL(host || '')
 
-  return fetch(`${url.origin}/api/v1/products`)
-    .then(res => res.json())
-    .catch(err => console.log(err))
+  const res = await fetch(`${url.origin}/api/v1/products`)
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
 }
 
 export default async function Store() {
