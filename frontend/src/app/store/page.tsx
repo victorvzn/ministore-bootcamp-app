@@ -10,8 +10,6 @@ const fetchProducts = async () => {
 
   const host = await headersInstance.get('referer')
 
-  console.log({ host })
-
   const url = await new URL(host || '')
 
   const res = await fetch(`${url.origin}/api/v1/products`)
