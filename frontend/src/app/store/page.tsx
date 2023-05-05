@@ -5,14 +5,15 @@ const inter = Inter({ subsets: ['latin'] })
 
 const APP_URL = process.env.APP_URL_FRONTEND
 
+const isDev = process.env.NODE_ENV === 'development'
+
 const fetchProducts = async () => {
     const headersInstance = headers();
 
+    const protocol = isDev ? 'http://' : 'https://'
     const host = headersInstance.get('host')
 
-    console.log(host)
-
-    const url = `https://${host}/api/v1/products`
+    const url = `${protocol}${host}/api/v1/products`
 
     const res = await fetch(url)
 
