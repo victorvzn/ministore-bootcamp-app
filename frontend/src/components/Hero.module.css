@@ -1,0 +1,19 @@
+.hero {
+  width: 100%;
+  min-height: 560px;
+  position: relative;
+  top: 0;
+  left: 0;
+
+  background-color: #fff;
+  background-image: url('../../public/images/juan-camilo-navia-maim4G7oRlo-unsplash.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-size: cover;
+  -webkit-filter: blur(0px);
+  filter: blur(0px);
+  overflow: hidden;
+  background-position: 50%;
+  background-blend-mode: multiply;
+}

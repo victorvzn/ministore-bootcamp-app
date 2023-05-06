@@ -1,21 +1,30 @@
-import { Inter } from 'next/font/google'
+// import Image from 'next/image'
+import Hero from '@/components/Hero'
+import Container from '@/components/ui/Container'
+import ProductListTrending from '@/components/ProductListTrending'
 
-const inter = Inter({ subsets: ['latin'] })
-
-const fetchProducts = () => {
-  const APP_URL = process.env.APP_URL
-
-  return fetch(`${APP_URL}/api/v1/products`)
-    .then(res => res.json())
-    .catch(err => console.log(err))
-}
+import Copy from '@/components/ui/Copy'
+import Link from 'next/link'
 
 export default async function Home() {
-  const products = await fetchProducts()
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Central Ministore</h1>
+    <main className='relative'>
+      <Copy />
+      <Hero />
+      <Container>
+        <div className='flex flex-col justify-center items-center w-full pt-6 pb-10'>
+          <h1 className="text-3xl font-semibold text-center uppercase">
+            Tendencia ahora
+          </h1>
+
+          <Link href="/products" className='mt-5 font-semibold underline underline-offset-8'>Ver Todos</Link>
+
+          <div className='mt-10'>
+            {/* @ts-expect-error Server Component */}
+            <ProductListTrending /> 
+          </div>
+        </div>
+      </Container>
     </main>
   )
 }
