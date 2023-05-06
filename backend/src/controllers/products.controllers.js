@@ -114,6 +114,62 @@ export const listProductsByStore = async (req, res) => {
   }
 }
 
+export const getProducByStore = async (req, res) => {
+  const enterpriseFound = req.enterprise
+
+  const { id } = req.params
+
+  const fieldsAllowed = {
+    id: true,
+    name: true,
+    price: true,
+    categoryId: true,
+    description: true,
+    category: {
+      select: {
+        id: true,
+        name: true
+      },
+    },
+    code: true,
+    discountPercentage: true,
+    stock: true,
+    brand: true,
+    thumbnail: true,
+    images: true,
+    sizes: true,
+    colors: true,
+
+    published: true,
+    active: true,
+    createdAt: true,
+    updatedAt: true,
+    deletedAt: true,
+  }
+
+  try {
+    const product = await Prisma.product.findFirst({
+      where: {
+        id,
+        enterpriseId: enterpriseFound.id,
+        active: true,
+        deletedAt: null,
+        published: true
+      },
+      select: fieldsAllowed
+    })
+
+    if (!product) {
+      return res.status(400).json({ message: 'No se encontró el producto' })
+    }
+
+    return res.status(200).json({ content: product })
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({ message: 'Error al obtener el producto', content: error.message })
+  }
+}
+
 export const getProduct = async (req, res) => {
   const { id } = req.params
 

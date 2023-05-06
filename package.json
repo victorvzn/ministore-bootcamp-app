@@ -1,7 +1,7 @@
 {
   "name": "ministore-bootcamp-app",
   "version": "1.0.0",
-  "description": "Mini tienda",
+  "description": "Multi Mini tiendas",
   "main": "index.js",
   "type": "module",
   "workspaces": ["backend", "frontend"],

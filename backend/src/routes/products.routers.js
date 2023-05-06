@@ -33,6 +33,13 @@ productsRouter.get(
   controllers.getProduct
 )
 
+productsRouter.get(
+  '/:id/store',
+  requestValidatorHandler(getProductSchema, 'params'),
+  validateDomain,
+  controllers.getProducByStore
+)
+
 productsRouter.put(
   '/:id',
   requestValidatorHandler(getProductSchema, 'params'),

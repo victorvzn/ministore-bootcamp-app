@@ -13,7 +13,7 @@ npm run dev
 
 Luego visite: http://localhost:5000
 
-### ¿Como levantar postgres?
+### ¿Cómo levantar postgres?
 
 ```
 docker-compose up -d postgres
