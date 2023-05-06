@@ -1,4 +1,3 @@
-// import Image from 'next/image'
 import Hero from '@/components/Hero'
 import Container from '@/components/ui/Container'
 import Copy from '@/components/ui/Copy'
@@ -20,7 +19,8 @@ export default function Home() {
             Mujer
           </h1>
           <p>Compra en línea y encuentra blusas hechas con el mejor algodón peruano para mujeres con diseños modernos y clásicos para cualquier ocasión.</p>
-
+          
+          {/* @ts-expect-error Server Component */}
           <ProductList />
         </div>
       </Container>
