@@ -4,7 +4,7 @@
   "description": "Multi Mini tiendas",
   "main": "index.js",
   "type": "module",
-  "workspaces": ["backend", "frontend"],
+  "workspaces": ["backend", "frontend", "central"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
